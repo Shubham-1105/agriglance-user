@@ -1,3 +1,4 @@
+import 'package:agriglance/Screens/Test/test_home.dart';
 import 'package:agriglance/Services/authenticate.dart';
 import 'package:agriglance/services/admob_service.dart';
 import 'package:firebase_admob/firebase_admob.dart';
@@ -11,6 +12,8 @@ import 'Screens/Home/home.dart';
 import 'Services/authentication_service.dart';
 
 import 'configure_nonweb.dart' if (dart.library.html) 'configure_web.dart';
+import 'routes.dart';
+import 'routes_generator.dart';
 
 
 void main() async {
@@ -42,9 +45,11 @@ class MyApp extends StatelessWidget {
             backgroundColor: Colors.grey,
             primaryColor: Colors.indigo[900],
           ),
-          home: (kIsWeb)
-              ? Home()
-              : ((FirebaseAuth.instance.currentUser == null) ? Authenticate() : Home()),
+         builder: (_,child)=>Home(child: child),
+         initialRoute: routeTests,
+         navigatorKey: navKey,
+         onGenerateRoute: RouteGenerator.generateRoute,
+         
         ));
   }
 }
